@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
- 
+
 # Módulos
 import pygame
 from pygame.locals import *

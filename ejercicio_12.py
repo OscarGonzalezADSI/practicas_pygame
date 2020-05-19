@@ -1,13 +1,11 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
- 
+
 # Módulos
 import sys, pygame
 from pygame.locals import *
  
 # Constantes
-WIDTH = 640
-HEIGHT = 480
+WIDTH = int(640)
+HEIGHT = int(480)
  
 # Clases
 # ---------------------------------------------------------------------
@@ -17,13 +15,13 @@ class Bola(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = load_image("images/ball.png", True)
         self.rect = self.image.get_rect()
-        self.rect.centerx = WIDTH / 2
-        self.rect.centery = HEIGHT / 2
+        self.rect.centerx = int(WIDTH / 2)
+        self.rect.centery = int(HEIGHT / 2)
         self.speed = [0.5, -0.5]
  
     def actualizar(self, time, pala_jug, pala_cpu, puntos):
-        self.rect.centerx += self.speed[0] * time
-        self.rect.centery += self.speed[1] * time
+        self.rect.centerx += int(self.speed[0] * time)
+        self.rect.centery += int(self.speed[1] * time)
  
         if self.rect.left <= 0:
             puntos[1] += 1
@@ -32,18 +30,18 @@ class Bola(pygame.sprite.Sprite):
  
         if self.rect.left <= 0 or self.rect.right >= WIDTH:
             self.speed[0] = -self.speed[0]
-            self.rect.centerx += self.speed[0] * time
+            self.rect.centerx += int(self.speed[0] * time)
         if self.rect.top <= 0 or self.rect.bottom >= HEIGHT:
             self.speed[1] = -self.speed[1]
-            self.rect.centery += self.speed[1] * time
+            self.rect.centery += int(self.speed[1] * time)
  
         if pygame.sprite.collide_rect(self, pala_jug):
             self.speed[0] = -self.speed[0]
-            self.rect.centerx += self.speed[0] * time
+            self.rect.centerx += int(self.speed[0] * time)
  
         if pygame.sprite.collide_rect(self, pala_cpu):
             self.speed[0] = -self.speed[0]
-            self.rect.centerx += self.speed[0] * time
+            self.rect.centerx += int(self.speed[0] * time)
  
         return puntos
  
@@ -53,7 +51,7 @@ class Pala(pygame.sprite.Sprite):
         self.image = load_image("images/pala.png")
         self.rect = self.image.get_rect()
         self.rect.centerx = x
-        self.rect.centery = HEIGHT / 2
+        self.rect.centery = int(HEIGHT / 2)
         self.speed = 0.5
  
     def mover(self, time, keys):
@@ -67,9 +65,9 @@ class Pala(pygame.sprite.Sprite):
     def ia(self, time, ball):
         if ball.speed[0] >= 0 and ball.rect.centerx >= WIDTH/2:
             if self.rect.centery < ball.rect.centery:
-                self.rect.centery += self.speed * time
+                self.rect.centery += int(self.speed * time)
             if self.rect.centery > ball.rect.centery:
-                self.rect.centery -= self.speed * time
+                self.rect.centery -= int(self.speed * time)
  
 # ---------------------------------------------------------------------
  
@@ -90,8 +88,8 @@ def texto(texto, posx, posy, color=(255, 255, 255)):
     fuente = pygame.font.Font("font/mayusculas/STENCIL.TTF", 25)
     salida = pygame.font.Font.render(fuente, texto, 1, color)
     salida_rect = salida.get_rect()
-    salida_rect.centerx = posx
-    salida_rect.centery = posy
+    salida_rect.centerx = int(posx)
+    salida_rect.centery = int(posy)
     return salida, salida_rect
  
 # ---------------------------------------------------------------------
